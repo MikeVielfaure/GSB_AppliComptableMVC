@@ -14,6 +14,7 @@
  * @link      http://www.php.net/manual/fr/book.pdo.php PHP Data Objects sur php.net
  */
 
+
 /**
  * Teste si un quelconque visiteur est connecté
  *
@@ -23,6 +24,7 @@ function estConnecte()
 {
     return isset($_SESSION['idVisiteur']);
 }
+
 
 /**
  * Enregistre dans une variable session les infos d'un visiteur
@@ -38,6 +40,28 @@ function connecter($idVisiteur, $nom, $prenom)
     $_SESSION['idVisiteur'] = $idVisiteur;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
+}
+
+/**
+ * Enregistre dans une variable le type visiteur
+ *
+ * @param String $type 
+ *
+ * @return null
+ */
+function typeVisiteur($type)
+{
+    $_SESSION['type'] = $type;
+}
+
+/**
+ * Teste si l'utilisateur est un visiteur
+ *
+ * @return vrai ou faux
+ */
+function estTypeVisiteur()
+{
+    return isset($_SESSION['type']);
 }
 
 /**

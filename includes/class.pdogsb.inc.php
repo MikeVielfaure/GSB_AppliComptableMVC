@@ -82,7 +82,7 @@ class PdoGsb
         return PdoGsb::$monPdoGsb;
     }
 
-    /**
+  /**
      * Retourne les informations d'un visiteur
      *
      * @param String $login Login du visiteur
@@ -102,7 +102,36 @@ class PdoGsb
         $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
         $requetePrepare->execute();
         return $requetePrepare->fetch();
+    }    
+    
+    /**
+     * Retourne type d'utilisateur
+     *
+     * @param String $login Login du visiteur
+     * @param String $mdp Mot de passe du visiteur
+     *
+     * @return vrai ou faux
+     */
+    public function estVisiteur($login, $mdp)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT utilisateur.id AS id, utilisateur.nom AS nom, '
+            . 'utilisateur.prenom AS prenom '
+            . 'FROM utilisateur INNER JOIN visiteur ON utilisateur.id = visiteur.id '
+            . 'WHERE utilisateur.login = :unLogin AND utilisateur.mdp = :unMdp'
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        if($requetePrepare->fetch()){
+            $type = "visiteur";
+        }else{
+            $type = "comptable";
+        }
+        return $type;
     }
+    
+    
 
     /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de frais
