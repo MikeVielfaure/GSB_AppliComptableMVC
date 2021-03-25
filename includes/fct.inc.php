@@ -26,6 +26,7 @@ function estConnecte()
 }
 
 
+
 /**
  * Enregistre dans une variable session les infos d'un visiteur
  *
@@ -270,4 +271,51 @@ function nbErreurs()
     } else {
         return count($_REQUEST['erreurs']);
     }
+}
+
+/**
+ * Retourne liste des mois inférieur au mois actuel dans l'ordre décroissant
+ * 
+ * return Array liste des mois
+ */
+function listeMois() 
+{
+    $lesMois = array();
+    $moisActuel = date("m");
+    
+    /*
+     for ($x = 1; $x <$moisActuel; $x++)
+    {
+    array_push($lesMois, $x);
+    }
+     */
+    
+    for($k=1; $k<$moisActuel; $k++)
+    {
+        if($moisActuel <= 10){
+            $lesMois[]="0".($moisActuel-$k);
+        }else{
+        $lesMois[]=$moisActuel-$k;
+        }
+    }
+    return $lesMois;
+}
+
+/**
+ * Retourne le mois suivant le mois en paramètre
+ * 
+ * return String mois
+ */
+function moisSuivant($leMois) 
+{
+    if( $leMois == 12 ){
+        return "01" ;
+    }else{
+        if($leMois <= 8){
+            return "0".($leMois + 1) ;
+        }else {
+            return ($leMois + 1) ;
+        }
+    }
+   
 }

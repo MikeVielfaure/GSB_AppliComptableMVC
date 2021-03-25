@@ -199,6 +199,8 @@ class PdoGsb
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
             'SELECT fraisforfait.id as idfrais, '
+            . 'lignefraisforfait.idVisiteur as idVisiteur, '
+            . 'lignefraisforfait.mois as mois, '
             . 'fraisforfait.libelle as libelle, '
             . 'lignefraisforfait.quantite as quantite '
             . 'FROM lignefraisforfait '
@@ -400,16 +402,16 @@ class PdoGsb
         $date,
         $montant
     ) {
-        $dateFr = dateFrancaisVersAnglais($date);
+        //$dateFr = dateFrancaisVersAnglais($date);
         $requetePrepare = PdoGSB::$monPdo->prepare(
-            'INSERT INTO lignefraishorsforfait '
-            . 'VALUES (null, :unIdVisiteur,:unMois, :unLibelle, :uneDateFr,'
+            'INSERT INTO lignefraishorsforfait (idvisiteur, mois, libelle, date, montant)'
+            . 'VALUES (:unIdVisiteur, :unMois, :unLibelle, :uneDateFr, '
             . ':unMontant) '
         );
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unLibelle', $libelle, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':uneDateFr', $dateFr, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':uneDateFr', $date, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
@@ -515,4 +517,132 @@ class PdoGsb
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
+    
+    /**
+     * Retourne les visiteurs
+     *
+     * @return un tableau avec prénom et nom des visiteurs
+     */
+    public function getLesVisiteurs()
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT utilisateur.id AS id, utilisateur.nom AS nom, utilisateur.prenom AS prenom FROM utilisateur INNER JOIN visiteur ON utilisateur.id = visiteur.id '
+            .'ORDER BY utilisateur.nom ASC'
+        );
+        $requetePrepare->execute();
+        $lesVisiteurs = array();
+        while ($laLigne = $requetePrepare->fetch()) {
+            $nom = $laLigne['nom'];
+            $prenom = $laLigne['prenom'];
+            $id = $laLigne['id'];
+            $lesVisiteurs[] = array(
+                'id' => $id,
+                'nom' => $nom,
+                'prenom' => $prenom,
+            );
+        }
+        return $lesVisiteurs;
+    }
+    
+     /**
+     * Modifie un frais
+     *
+     * @param String $idVisiteur ID du visiteur
+     * @param String $mois       Mois sous la forme aaaamm
+     * @param int $quantite       Nouvel quantité
+     * @param String $libelle     nom du frai
+     *
+     * @return null
+     */
+    public function majFicheFrais($idVisiteur, $mois, $quantite, $libelle)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'UPDATE lignefraisforfait '
+            . 'SET quantite = :uneQuantite '
+            . 'WHERE lignefraisforfait.idfraisforfait = (SELECT fraisforfait.id from fraisforfait where libelle =:unLibelle) '
+            . 'AND lignefraisforfait.mois = :unMois '
+            . 'AND lignefraisforfait.idVisiteur = :unIdVisiteur '
+        );
+        $requetePrepare->bindParam(':uneQuantite', $quantite, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unLibelle', $libelle, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    /**
+     * Modifie un libelle fraisHF (mention REFUSE devant le libelle)
+     *
+     * @param String $libelle mot REFUSE
+     * @param String $idVisiteur ID du visiteur
+     * @param String $mois       Mois sous la forme aaaamm
+     * @param String $id         id du frais HF
+     *
+     * @return null
+     */
+    public function majFicheFraisHF($idVisiteur, $id, $mois, $libelle)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'UPDATE lignefraishorsforfait '
+            . 'SET libelle = concat(:refus ,libelle) '
+            . 'WHERE idvisiteur = :unIdVisiteur '
+            . 'AND mois = :unMois '
+            . 'AND id = :unId '
+        );
+        $requetePrepare->bindParam(':refus',$libelle , PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+
+/**
+     * Modifie l'état et la date d'une fiche de frais
+     *
+     * @param String $idVisiteur ID du visiteur
+     * @param String $mois       Mois sous la forme aaaamm
+     * @param String $etat etat de la fiche de frais
+     *
+     * @return null
+     */
+    public function majFiche($idVisiteur, $mois, $etat)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'UPDATE fichefrais '
+            . 'SET idetat = :unEtat, dateModif = now() '
+            . 'WHERE idvisiteur = :unIdVisiteur '
+            . 'AND mois = :unMois '
+            
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unEtat', $etat, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    /**
+     * Retourne un frais hors forfait
+     *
+     * @param String $id fraisHF
+     *
+     * @return un tableau avec des champs d'un frais hors forfait
+     */
+    public function getFraisHorsForfait($id)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT lignefraishorsforfait.montant as mnt, '
+            . 'lignefraishorsforfait.libelle as lbl, '
+            . 'lignefraishorsforfait.date as dte '
+            . 'FROM lignefraishorsforfait '
+            . 'WHERE id = :unId '
+        );
+        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $laLigne = $requetePrepare->fetch();
+        return $laLigne;
+    }
+    
 }
+
+
+
