@@ -13,21 +13,15 @@
  * @version   GIT: <0>
  */
 ?>
-
+<div class="row">
 <hr>
-<div class="panel panel-primary">
-    <div class="panel-heading">Fiche de frais du mois 
-        <?php echo $numMois . '-' . $numAnnee ?> : </div>
-    <div class="panel-body">
-        <strong><u>Etat :</u></strong> <?php echo $libEtat ?>
-        depuis le <?php echo $dateModif ?> <br> 
-        <strong><u>Montant validé :</u></strong> <?php echo $montantValide ?>
-    </div>
 </div>
+<div class="row">
+        <h3>Détails des frais de <?php echo $leNom." ".$lePrenom ?> pour le mois <?php echo $leMois ?> </h3>
+</div>
+<div class="row">
 <div class="panel panel-info">
-    <div class="panel-heading">Eléments forfaitisés  <?php echo $actualise ?></div>
-    <form action="index.php?uc=validerFrais&action=actualiseFicheFrais" 
-              method="post" role="form">
+    <div class="panel-heading">Eléments forfaitisés</div>
     <table style="margin-bottom: 0;" class="table table-bordered table-responsive">
         <tr>
             <?php
@@ -53,29 +47,21 @@
                 $qte4 = $frais4['quantite'];
                 ?>
             <td class="qteForfait"> 
-                <input type="text" name="Etape"  value= "<?php echo $qte1 ?>" /> 
+                <?php echo $qte1 ?>
             </td>
             <td class="qteForfait"> 
-                <input type="text" name="Kilométrique"  value= "<?php echo $qte2 ?>" /> 
+                <?php echo $qte2 ?>
             </td>
             <td class="qteForfait"> 
-                <input type="text" name="Nuitee"  value= "<?php echo $qte3 ?>" /> 
+                <?php echo $qte3 ?>
             </td>
             <td class="qteForfait"> 
-                <input type="text" name="Repas"  value= "<?php echo $qte4 ?>" /> 
+                <?php echo $qte4 ?>
             </td>
         </tr>
-        <input type="hidden" name="idVisiteur" value="<?php echo $idVisiteur ?>" />
-        <input type="hidden" name="mois" value="<?php echo $mois ?>" />
     </table>
-        <div style="text-align:center;">
-        <input style="background-color: #337ab7;border-color: #337ab7; margin-top: 
-               10px;margin-bottom: 10px" id="ok" 
-               type="submit" value="Actualiser" class="btn btn-success" role="button"/>
-        </div>
-    </form>
 </div>
-<form action="index.php?uc=validerFicheFrais&action=validerFicheFrais" 
+<form action="index.php?uc=suivrePaiement&action=paiement" 
      method="post" role="form">
 <div class="panel panel-info">
     <div class="panel-heading">Descriptif des éléments hors forfait - 
@@ -85,8 +71,6 @@
             <th class="date">Date</th>
             <th class="libelle">Libellé</th>
             <th class='montant'>Montant</th> 
-            <th class="libelle" style='width: 10%'>Refuser</th>
-            <th class="libelle" style='width: 10%'>Report</th>
         </tr>
         <?php
         foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
@@ -98,12 +82,6 @@
                 <td><?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
-                <td>
-                    <input type="checkbox"  name="fraisHF[]" value="<?php echo $iD ?> ">
-                </td>
-                <td>
-                    <input type="checkbox"  name="fraisReport[]" value="<?php echo $iD ?> ">
-                </td>
             </tr>
             <?php
         }
@@ -111,8 +89,9 @@
     </table>
 </div>
 <div style="text-align:center;">
-    <input style="margin-bottom: 20px" id="ok" type="submit" name="submit" 
-           value="Valider" class="btn btn-success" role="button"/>
+    <input style="margin-bottom: 20px; background-color: #337ab7;border-color: #337ab7;" id="ok" type="submit" name="submit" 
+           value="Paiement" class="btn btn-success" role="button"/>
 </div>
 </form>
+</div>
 

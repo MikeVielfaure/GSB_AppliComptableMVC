@@ -101,10 +101,10 @@
                                     Valider fiche de frais
                                 </a>
                             </li>
-                            <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=validerFrais&action=selectionnerMois">
+                            <li <?php if ($uc == 'suivrePaiement') { ?>class="active"<?php } ?>>
+                                <a href="index.php?uc=suivrePaiement&action=listeFicheFrais">
                                     <span class="glyphicon glyphicon-list-alt"></span>
-                                    Afficher
+                                    Suivre le paiement fiche de frais
                                 </a>
                             </li>
                             <li 

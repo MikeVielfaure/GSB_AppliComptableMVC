@@ -600,7 +600,7 @@ class PdoGsb
      * Modifie l'état et la date d'une fiche de frais
      *
      * @param String $idVisiteur ID du visiteur
-     * @param String $mois       Mois sous la forme aaaamm
+     * @param String $mois       Mois 
      * @param String $etat etat de la fiche de frais
      *
      * @return null
@@ -641,6 +641,84 @@ class PdoGsb
         $laLigne = $requetePrepare->fetch();
         return $laLigne;
     }
+    
+        /**
+     * Retourne la liste des fiches de frais pour un état avec les information
+     *
+     * @param String $mois       état
+     *
+     * @return un tableau avec des champs des jointure des tables fichefrais, 
+     * visteur, utilisateur et etat.
+     */
+    public function getFichesFrais($etat)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT fichefrais.idetat as idEtat, '
+            . 'fichefrais.datemodif as dateModif, '
+            . 'fichefrais.nbjustificatifs as nbJustificatifs, '
+            . 'fichefrais.montantvalide as montantValide, '
+            . 'fichefrais.mois as mois, '
+            . 'fichefrais.idvisiteur as idVisiteur, '
+            . 'utilisateur.nom as nom, '
+            . 'utilisateur.prenom as prenom, '
+            . 'etat.libelle as libelle '
+            . 'FROM fichefrais '
+            . 'INNER JOIN visiteur ON fichefrais.idvisiteur = visiteur.id '
+            . 'INNER JOIN utilisateur ON visiteur.id = utilisateur.id '
+            . 'INNER JOIN etat ON fichefrais.idetat = etat.id '
+            . 'WHERE fichefrais.idetat = :unEtat '
+            . 'ORDER BY utilisateur.nom ASC '
+        );
+        $requetePrepare->bindParam(':unEtat', $etat, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $lesFichesFrais = array();
+        while ($laLigne = $requetePrepare->fetch()) {
+            $nom = $laLigne['nom'];
+            $prenom = $laLigne['prenom'];
+            $idVisiteur = $laLigne['idVisiteur'];
+            $idEtat = $laLigne['idEtat'];
+            $dateModif = $laLigne['dateModif'];
+            $nbJustificatis = $laLigne['nbJustificatifs'];
+            $montantValide = $laLigne['montantValide'];
+            $mois = $laLigne['mois'];
+            $libelle = $laLigne['libelle'];
+            $lesFichesFrais[] = array(
+                'id' => $idVisiteur,
+                'nom' => $nom,
+                'prenom' => $prenom,
+                'idEtat' => $idEtat,
+                'dateModif' => $dateModif,
+                'nbJustificatifs' => $nbJustificatis,
+                'montantValide' => $montantValide,
+                'mois' => $mois,
+                'libelle' => $libelle
+            );
+        }
+        return $lesFichesFrais;
+    }
+    
+       /**
+     * Retourne un frais hors forfait
+     *
+     * @param String $idVisiteur ID Visiteur
+     * 
+     * @return un tableau nom et prenom du visiteur
+     */
+    public function getNomPrenomVisiteur($idVisiteur)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT utilisateur.nom as nom, '
+            . 'utilisateur.prenom as prenom '
+            . 'FROM utilisateur '
+            . 'WHERE id = :unIdVisiteur '
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $laLigne = $requetePrepare->fetch();
+        return $laLigne;
+    }
+    
+    
     
 }
 
