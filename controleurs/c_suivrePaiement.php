@@ -15,7 +15,7 @@
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 switch ($action) {
 case 'listeFicheFrais':
-    $fichesFrais = $pdo->getFichesFrais("CR");
+    $fichesFrais = $pdo->getFichesFrais("VA");
     if($fichesFrais != null){
     include 'vues/v_listeFicheFrais.php';
     }else{
@@ -23,7 +23,7 @@ case 'listeFicheFrais':
     }
     break;
 case 'detailFicheFrais':
-    $fichesFrais = $pdo->getFichesFrais("CR");
+    $fichesFrais = $pdo->getFichesFrais("VA");
     include 'vues/v_listeFicheFrais.php';
     $leMois = filter_input(INPUT_POST, 'mois', FILTER_SANITIZE_STRING);
     $leVisiteurId = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_STRING);

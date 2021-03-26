@@ -34,8 +34,9 @@ case 'afficheFicheFrais':
     $moisASelectionner = $leMois;
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteurId, $leMois);
     $lesFraisForfait = $pdo->getLesFraisForfait($leVisiteurId, $leMois);
-    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($leVisiteurId, $leMois);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFraisEtat($leVisiteurId, $leMois, "CL");
     if($lesInfosFicheFrais == null){
+        include 'vues/v_choixVisiteur.php';
         include 'vues/v_noFicheFrais.php';
     }else{
     include 'vues/v_choixVisiteur.php';
@@ -112,7 +113,12 @@ case 'validerFicheFrais':
             }
         }
     }
-    $pdo->majFiche($leVisiteurId, $leMois, "VA");
+    $montantFraisForfait = $pdo->getMontantTotalFraisForfait($leVisiteurId, $leMois);
+    $montantTotalFraisForfait = $montantFraisForfait['montantTotal'];
+    $montantFraisHorsForfait = $pdo->getMontantTotalFraisHorsForfait($leVisiteurId, $leMois);
+    $montantTotalFraisHorsForfait = $montantFraisHorsForfait['montantTotal'];
+    $montantTotal = floatval($montantTotalFraisForfait) + floatval($montantTotalFraisHorsForfait);
+    $pdo->majFiche($leVisiteurId, $leMois, "VA", $montantTotal);
 include 'vues/v_ficheFraisValide.php';
 
     break;

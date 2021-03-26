@@ -34,9 +34,9 @@
         </thead>
         </table>-->
     
-    <div style="min-height:200px;
-height:200px;/*pour IE qui comprend rien, et qui ne reconnait pas min-height, mais qui comprend mal height*/
-min-width:100px;
+    <div style="min-height:20px;
+max-height:200px;/*pour IE qui comprend rien, et qui ne reconnait pas min-height, mais qui comprend mal height*/
+min-width:10px;
 /*pour IE qui comprend rien*/
 overflow-y:scroll;/*pour activer les scrollbarres*/">
     <table  class="table table-bordered table-responsive scrollTable">

@@ -15,9 +15,8 @@
  */
 ?>
 
-<div class="alert alert-info" role="alert">
-    <p>pas de fiche de frais pour ce visiteur ! <a href="index.php?uc=validerFrais&action=choixVisiteur">Cliquez ici</a>
-        pour revenir à la page de validation des fiches de frais.</p>
+<div style="margin-top: 10px" class="alert alert-info" role="alert">
+    <p>pas de fiche de frais à valider pour ce visiteur ! 
+    </p>
 </div>
 <?php
-header("Refresh: 3;URL=index.php?uc=validerFrais&action=choixVisiteur");

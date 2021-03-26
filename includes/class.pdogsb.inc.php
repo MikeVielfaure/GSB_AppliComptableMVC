@@ -602,21 +602,22 @@ class PdoGsb
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois 
      * @param String $etat etat de la fiche de frais
+     * @param float $montant montant validé
      *
      * @return null
      */
-    public function majFiche($idVisiteur, $mois, $etat)
+    public function majFiche($idVisiteur, $mois, $etat, $montant)
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
             'UPDATE fichefrais '
-            . 'SET idetat = :unEtat, dateModif = now() '
+            . 'SET idetat = :unEtat, dateModif = now(), montantvalide = :unMontant '
             . 'WHERE idvisiteur = :unIdVisiteur '
             . 'AND mois = :unMois '
-            
         );
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unEtat', $etat, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
     
@@ -643,7 +644,7 @@ class PdoGsb
     }
     
         /**
-     * Retourne la liste des fiches de frais pour un état avec les information
+     * Retourne la liste des fiches de frais pour un état avec les informations
      *
      * @param String $mois       état
      *
@@ -697,7 +698,7 @@ class PdoGsb
         return $lesFichesFrais;
     }
     
-       /**
+     /**
      * Retourne un frais hors forfait
      *
      * @param String $idVisiteur ID Visiteur
@@ -718,8 +719,92 @@ class PdoGsb
         return $laLigne;
     }
     
+    /**
+     * Retourne le montant total des frais forfaitisés pour un visiteur 
+     * et un mois
+     *
+     * @param String $idVisiteur ID Visiteur
+     * @param String $mois mois
+     * 
+     * @return un tableau avec le montant total
+     */
+    public function getMontantTotalFraisForfait($idVisiteur, $mois)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT SUM(lignefraisforfait.quantite*fraisforfait.montant) as montantTotal '
+            . 'FROM lignefraisforfait INNER JOIN fraisforfait '
+            . 'ON lignefraisforfait.idfraisforfait = fraisforfait.id '
+            . 'WHERE lignefraisforfait.idvisiteur = :unIdVisiteur '
+            . 'AND mois = :unMois '
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $laLigne = $requetePrepare->fetch();
+        return $laLigne;
+    }
+    
+    /**
+     * Retourne le montant total des frais hors forfaitisés pour un visiteur 
+     * et un mois sans compter les refusés
+     *
+     * @param String $idVisiteur ID Visiteur
+     * @param String $mois mois
+     * 
+     * @return un tableau avec le montant total
+     */
+    public function getMontantTotalFraisHorsForfait($idVisiteur, $mois)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT SUM(lignefraishorsforfait.montant) as montantTotal  '
+            . 'FROM lignefraishorsforfait '
+            . 'WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur '
+            . 'AND lignefraishorsforfait.mois = :unMois '
+            . 'AND not lignefraishorsforfait.libelle like "REFUSE%"'
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $laLigne = $requetePrepare->fetch();
+        return $laLigne;
+    }
+    
+    /**
+     * Retourne les informations d'une fiche de frais d'un visiteur pour un
+     * mois et un état donné
+     *
+     * @param String $idVisiteur ID du visiteur
+     * @param String $mois       Mois sous la forme aaaamm
+     * @param String $mois       Mois sous la forme aaaamm
+     *
+     * @return un tableau avec des champs de jointure entre une fiche de frais
+     *         et la ligne d'état
+     */
+    public function getLesInfosFicheFraisEtat($idVisiteur, $mois, $etat)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT fichefrais.idetat as idEtat, '
+            . 'fichefrais.datemodif as dateModif,'
+            . 'fichefrais.nbjustificatifs as nbJustificatifs, '
+            . 'fichefrais.montantvalide as montantValide, '
+            . 'etat.libelle as libEtat '
+            . 'FROM fichefrais '
+            . 'INNER JOIN etat ON fichefrais.idetat = etat.id '
+            . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
+            . 'AND fichefrais.mois = :unMois '
+            . 'AND fichefrais.idetat = :unEtat '
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unEtat', $etat, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $laLigne = $requetePrepare->fetch();
+        return $laLigne;
+    }
     
     
+    
+
 }
 
 
