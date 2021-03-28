@@ -37,6 +37,7 @@
                 <?php
             }
             ?>
+                <th>Type de voiture : </th>
         </tr>
         <tr>
             <?php
@@ -64,6 +65,27 @@
             <td class="qteForfait"> 
                 <input type="text" name="Repas"  value= "<?php echo $qte4 ?>" /> 
             </td>
+            <td class="qteForfait">
+                <select id="lstVehicule" name="lstVehicule" class="form-control">
+                <?php
+                    foreach ($listePuissanceVehicule as $unePuissance) {
+                        $puissanceVehicule = $unePuissance['puissanceVehicule'];
+                        $idP = $unePuissance['idPuissanceVehicule'];
+                        if ($idP == $idPuissanceVehicule) {
+                            ?>
+                            <option selected value="<?php echo $idP ?>">
+                                <?php echo $puissanceVehicule ?> </option>
+                            <?php
+                        } else {
+                            ?>
+                            <option value="<?php echo $idP ?>">
+                                <?php echo $puissanceVehicule  ?> </option>
+                            <?php
+                        }
+                    }
+                    ?>    
+                </select>
+            </td>
         </tr>
         <input type="hidden" name="idVisiteur" value="<?php echo $idVisiteur ?>" />
         <input type="hidden" name="mois" value="<?php echo $mois ?>" />
@@ -71,7 +93,7 @@
         <div style="text-align:center;">
         <input style="background-color: #337ab7;border-color: #337ab7; margin-top: 
                10px;margin-bottom: 10px" id="ok" 
-               type="submit" value="Actualiser" class="btn btn-success" role="button"/>
+               type="submit" value="Sauvegarder" class="btn btn-success" role="button"/>
         </div>
     </form>
 </div>

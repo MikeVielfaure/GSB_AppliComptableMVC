@@ -802,6 +802,93 @@ class PdoGsb
         return $laLigne;
     }
     
+     /**
+     * Retourne la liste des types de véhicules
+     *
+     * @return un tableau avec des champs de puissancevehicule
+     */
+    public function getListePuissanceVehicule()
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT puissancevehicule.libelle as puissanceVehicule, '
+            . 'puissancevehicule.idpuissancevehicule as idPuissanceVehicule '
+            . 'FROM puissancevehicule '
+        );
+        $requetePrepare->execute();
+        $lesPuissances = array();
+        while ($laLigne = $requetePrepare->fetch()) {
+            $puissanceVehicule = $laLigne['puissanceVehicule'];
+            $idPuissance = $laLigne['idPuissanceVehicule'];
+            $lesPuissances[] = array(
+                'puissanceVehicule' => $puissanceVehicule,
+                'idPuissanceVehicule' => $idPuissance
+            );
+        }
+        return $lesPuissances;
+    }
+    
+     /**
+     * Retourne le puissance du vehicule enregistré
+     *
+     * @param String $idVisiteur ID Visiteur
+     * 
+     * @return un tableau avec la puissance véhicule
+     */
+    public function getPuissanceVehicule($idVisiteur)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT puissancevehicule.libelle as puissanceVehicule, '
+            . 'puissancevehicule.idpuissancevehicule as idPuissanceVehicule, '
+            . 'puissancevehicule.montant as montant '
+            . 'FROM puissancevehicule INNER JOIN visiteur '
+            . 'ON puissancevehicule.idpuissancevehicule = visiteur.idpuissancevehicule '
+            . 'WHERE visiteur.id = :unIdVisiteur '
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $laLigne = $requetePrepare->fetch();
+        return $laLigne;
+    }
+    
+    /**
+     * Modifie la puissance véhicule d'un visiteur
+     *
+     * @param String $idVisiteur ID du visiteur
+     * @param String $idPuissanceVehicule     ID puissance vehicule
+     *
+     * @return null
+     */
+    public function majIdPuissanceVehicule($idVisiteur, $idPuissanceVehicule)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'UPDATE visiteur '
+            . 'SET idpuissancevehicule = :unIdPuissanceVehicule '
+            . 'WHERE id = :unIdVisiteur '
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdPuissanceVehicule', $idPuissanceVehicule, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+     /**
+     * Modifie le montant du frais kilométrique
+     *
+     * @param String $id ID frais forfait
+     * @param String $montant le montant
+     *
+     * @return null
+     */
+    public function majMontantFraisForfait($id, $montant)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'UPDATE fraisforfait '
+            . 'SET montant = :unMontant '
+            . 'WHERE id = :unId '
+        );
+        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
     
     
 

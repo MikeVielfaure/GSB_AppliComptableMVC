@@ -48,6 +48,9 @@ case 'afficheFicheFrais':
     $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
     $_SESSION['moisSession'] = $leMois;
     $_SESSION['idVisiteurSession'] = $leVisiteurId;
+    $listePuissanceVehicule = $pdo->getListePuissanceVehicule();
+    $laPuissanceVehicule = $pdo->getPuissanceVehicule($_SESSION['idVisiteurSession']);
+    $idPuissanceVehicule = $laPuissanceVehicule['idPuissanceVehicule'];
     include 'vues/v_afficheFicheFrais.php';
     }
     break;
@@ -56,6 +59,7 @@ case 'actualiseFicheFrais':
     $actualise = "actualisée";
     $leMois = filter_input(INPUT_POST, 'mois', FILTER_SANITIZE_STRING);
     $leVisiteurId = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_STRING);
+    $idPuissance = filter_input(INPUT_POST, 'lstVehicule', FILTER_SANITIZE_STRING);
     $leMois = $_SESSION['moisSession'] ;
     $leVisiteurId = $_SESSION['idVisiteurSession'] ; 
     // récupère les quantité modifié
@@ -73,6 +77,7 @@ case 'actualiseFicheFrais':
     $pdo->majFicheFrais($leVisiteurId, $leMois, $km, "Frais Kilométrique");
     $pdo->majFicheFrais($leVisiteurId, $leMois, $nuite, "Nuitée Hôtel");
     $pdo->majFicheFrais($leVisiteurId, $leMois, $repas, "Repas Restaurant");
+    $pdo->majIdPuissanceVehicule($leVisiteurId, $idPuissance);
     // récupère la fiche de frais 
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteurId, $leMois);
     $lesFraisForfait = $pdo->getLesFraisForfait($leVisiteurId, $leMois);
@@ -83,6 +88,10 @@ case 'actualiseFicheFrais':
     $montantValide = $lesInfosFicheFrais['montantValide'];
     $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
     $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+    // récupère la liste des puissances et la puissance duvéhicule du visiteur
+    $listePuissanceVehicule = $pdo->getListePuissanceVehicule();
+    $laPuissanceVehicule = $pdo->getPuissanceVehicule($_SESSION['idVisiteurSession']);
+    $idPuissanceVehicule = $laPuissanceVehicule['idPuissanceVehicule'];
     include 'vues/v_afficheFicheFrais.php';
     break;
 case 'validerFicheFrais':
@@ -113,6 +122,9 @@ case 'validerFicheFrais':
             }
         }
     }
+    $puissanceVehicule = $pdo->getPuissanceVehicule($leVisiteurId);
+    $leMontant = $puissanceVehicule['montant'];
+    $pdo->majMontantFraisForfait("KM", $leMontant);
     $montantFraisForfait = $pdo->getMontantTotalFraisForfait($leVisiteurId, $leMois);
     $montantTotalFraisForfait = $montantFraisForfait['montantTotal'];
     $montantFraisHorsForfait = $pdo->getMontantTotalFraisHorsForfait($leVisiteurId, $leMois);
