@@ -62,6 +62,7 @@ function typeVisiteur($type)
  */
 function estTypeVisiteur()
 {
+  
     return isset($_SESSION['type']);
 }
 

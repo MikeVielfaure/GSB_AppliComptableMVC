@@ -18,6 +18,8 @@
 </div>
 <div class="row">
         <h3>Détails des frais de <?php echo $leNom." ".$lePrenom ?> pour le mois <?php echo $leMois ?> </h3>
+        <!--<a href="index.php?uc=telechargerPDF">Télécharger PDF
+        </a>-->
 </div>
 <div class="row">
 <div class="panel panel-info">
@@ -41,10 +43,10 @@
                 $frais4 = $lesFraisForfait[3];
                 $idVisiteur = $frais1['idVisiteur'];
                 $mois = $frais1['mois'];
-                $qte1 = $frais1['quantite'];
-                $qte2 = $frais2['quantite'];
-                $qte3 = $frais3['quantite'];
-                $qte4 = $frais4['quantite'];
+                $qte1 = $frais1['montant'];
+                $qte2 = $frais2['montant'];
+                $qte3 = $frais3['montant'];
+                $qte4 = $frais4['montant'];
                 ?>
             <td class="qteForfait"> 
                 <?php echo $qte1 ?>
@@ -61,8 +63,11 @@
         </tr>
     </table>
 </div>
+    
 <form action="index.php?uc=suivrePaiement&action=paiement" 
      method="post" role="form">
+    <?php if ($lesFraisHorsForfait != null){
+        ?>
 <div class="panel panel-info">
     <div class="panel-heading">Descriptif des éléments hors forfait - 
         <?php echo $nbJustificatifs ?> justificatifs reçus</div>
@@ -88,6 +93,15 @@
         ?>
     </table>
 </div>
+    <?php 
+        }else{
+    ?>
+<div style="margin-top: 10px" class="alert alert-info" role="alert">
+    <p>pas de frais hors forfait pour ce visiteur à ce mois ! 
+    </p>
+</div>
+        <?php }
+        ?>
 <div style="text-align:center;">
     <input style="margin-bottom: 20px; background-color: #337ab7;border-color: #337ab7;" id="ok" type="submit" name="submit" 
            value="Paiement" class="btn btn-success" role="button"/>

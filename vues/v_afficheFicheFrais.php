@@ -99,6 +99,8 @@
 </div>
 <form action="index.php?uc=validerFicheFrais&action=validerFicheFrais" 
      method="post" role="form">
+        <?php if($lesFraisHorsForfait != null){
+        ?>
 <div class="panel panel-info">
     <div class="panel-heading">Descriptif des éléments hors forfait - 
         <?php echo $nbJustificatifs ?> justificatifs reçus</div>
@@ -132,6 +134,14 @@
         ?>
     </table>
 </div>
+    <?php }else{
+        ?>
+<div style="margin-top: 10px" class="alert alert-info" role="alert">
+    <p>pas de frais hors forfait pour ce visiteur à ce mois ! 
+    </p>
+</div>
+    <?php }
+    ?>
 <div style="text-align:center;">
     <input style="margin-bottom: 20px" id="ok" type="submit" name="submit" 
            value="Valider" class="btn btn-success" role="button"/>

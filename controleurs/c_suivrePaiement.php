@@ -33,13 +33,16 @@ case 'detailFicheFrais':
     $leNom = $unVisiteur['nom'];
     $lePrenom = $unVisiteur['prenom'];
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteurId, $leMois);
+    $puissanceVehicule = $pdo->getPuissanceVehicule($leVisiteurId);
+    $leMontant = $puissanceVehicule['montant'];
+    $pdo->majMontantFraisForfait("KM", $leMontant);
     $lesFraisForfait = $pdo->getLesFraisForfait($leVisiteurId, $leMois);
     include 'vues/v_detailFicheFrais.php';
     break;
 case 'paiement':
     $leVisiteurId = $_SESSION['idVisiteurSession'];
     $leMois = $_SESSION['moisSession'];
-    $pdo->majFiche($leVisiteurId, $leMois, "RB");
+    $pdo->majFicheEtat($leVisiteurId, $leMois, "RB");
     include 'vues/v_paiementValide.php';
     break;
 }

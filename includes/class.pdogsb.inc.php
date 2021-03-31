@@ -110,7 +110,7 @@ class PdoGsb
      * @param String $login Login du visiteur
      * @param String $mdp Mot de passe du visiteur
      *
-     * @return vrai ou faux
+     * @return comptable ou visiteur
      */
     public function estVisiteur($login, $mdp)
     {
@@ -118,17 +118,19 @@ class PdoGsb
             'SELECT utilisateur.id AS id, utilisateur.nom AS nom, '
             . 'utilisateur.prenom AS prenom '
             . 'FROM utilisateur INNER JOIN visiteur ON utilisateur.id = visiteur.id '
-            . 'WHERE utilisateur.login = :unLogin AND utilisateur.mdp = :unMdp'
+            . 'WHERE utilisateur.login = :unLogin AND utilisateur.mdp = sha2(:unMdp, 512)'
         );
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
         $requetePrepare->execute();
+
         if($requetePrepare->fetch()){
             $type = "visiteur";
         }else{
             $type = "comptable";
         }
         return $type;
+       
     }
     
     
@@ -201,7 +203,8 @@ class PdoGsb
             'SELECT fraisforfait.id as idfrais, '
             . 'lignefraisforfait.idVisiteur as idVisiteur, '
             . 'lignefraisforfait.mois as mois, '
-            . 'fraisforfait.libelle as libelle, '
+            . 'fraisforfait.libelle as libelle,'
+            . 'fraisforfait.montant * lignefraisforfait.quantite as montant, '
             . 'lignefraisforfait.quantite as quantite '
             . 'FROM lignefraisforfait '
             . 'INNER JOIN fraisforfait '
@@ -617,7 +620,30 @@ class PdoGsb
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unEtat', $etat, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    /**
+     * Modifie l'état et la date d'une fiche de frais
+     *
+     * @param String $idVisiteur ID du visiteur
+     * @param String $mois       Mois 
+     * @param String $etat etat de la fiche de frais
+     *
+     * @return null
+     */
+    public function majFicheEtat($idVisiteur, $mois, $etat)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'UPDATE fichefrais '
+            . 'SET idetat = :unEtat, dateModif = now() '
+            . 'WHERE idvisiteur = :unIdVisiteur '
+            . 'AND mois = :unMois '
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unEtat', $etat, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
     

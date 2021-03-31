@@ -55,6 +55,9 @@ case 'validerFicheFrais':
 case 'suivrePaiement':
     include 'controleurs/c_suivrePaiement.php';
     break;
+case 'telechargerPDF':
+    include 'controleurs/c_telechargerPDF.php';
+    break;
 case 'deconnexion':
     include 'controleurs/c_deconnexion.php';
     break;
