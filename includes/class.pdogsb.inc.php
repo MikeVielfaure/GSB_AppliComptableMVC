@@ -576,10 +576,10 @@ class PdoGsb
     /**
      * Modifie un libelle fraisHF (mention REFUSE devant le libelle)
      *
-     * @param String $libelle mot REFUSE
      * @param String $idVisiteur ID du visiteur
+     * @param String $id ID du frais HF
      * @param String $mois       Mois sous la forme aaaamm
-     * @param String $id         id du frais HF
+     * @param String $libelle    le libellé à ajouter
      *
      * @return null
      */
@@ -669,10 +669,10 @@ class PdoGsb
         return $laLigne;
     }
     
-        /**
+     /**
      * Retourne la liste des fiches de frais pour un état avec les informations
      *
-     * @param String $mois       état
+     * @param String $etat l'état des fiches retournées
      *
      * @return un tableau avec des champs des jointure des tables fichefrais, 
      * visteur, utilisateur et etat.
