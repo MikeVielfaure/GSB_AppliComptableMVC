@@ -160,8 +160,8 @@ pour un visiteur et un mois donnés</span><pre>creeNouvellesLignesFrais</pre>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_getFichesFrais" title="getFichesFrais :: Retourne la liste des fiches de frais pour un état avec les information">
-            <span class="description">Retourne la liste des fiches de frais pour un état avec les information</span><pre>getFichesFrais</pre>
+        <a href="#method_getFichesFrais" title="getFichesFrais :: Retourne la liste des fiches de frais pour un état avec les informations">
+            <span class="description">Retourne la liste des fiches de frais pour un état avec les informations</span><pre>getFichesFrais</pre>
         </a>
     </li>
 
@@ -208,6 +208,14 @@ mois donné</span><pre>getLesInfosFicheFrais</pre>
     </li>
 
                                                                                                         <li class="method public">
+        <a href="#method_getLesInfosFicheFraisEtat" title="getLesInfosFicheFraisEtat :: Retourne les informations d&#039;une fiche de frais d&#039;un visiteur pour un
+mois et un état donné">
+            <span class="description">Retourne les informations d&#039;une fiche de frais d&#039;un visiteur pour un
+mois et un état donné</span><pre>getLesInfosFicheFraisEtat</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_getLesMoisDisponibles" title="getLesMoisDisponibles :: Retourne les mois pour lesquel un visiteur a une fiche de frais">
             <span class="description">Retourne les mois pour lesquel un visiteur a une fiche de frais</span><pre>getLesMoisDisponibles</pre>
         </a>
@@ -216,6 +224,28 @@ mois donné</span><pre>getLesInfosFicheFrais</pre>
                                                                                                         <li class="method public">
         <a href="#method_getLesVisiteurs" title="getLesVisiteurs :: Retourne les visiteurs">
             <span class="description">Retourne les visiteurs</span><pre>getLesVisiteurs</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getListePuissanceVehicule" title="getListePuissanceVehicule :: Retourne la liste des types de véhicules">
+            <span class="description">Retourne la liste des types de véhicules</span><pre>getListePuissanceVehicule</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getMontantTotalFraisForfait" title="getMontantTotalFraisForfait :: Retourne le montant total des frais forfaitisés pour un visiteur
+et un mois">
+            <span class="description">Retourne le montant total des frais forfaitisés pour un visiteur
+et un mois</span><pre>getMontantTotalFraisForfait</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getMontantTotalFraisHorsForfait" title="getMontantTotalFraisHorsForfait :: Retourne le montant total des frais hors forfaitisés pour un visiteur
+et un mois sans compter les refusés">
+            <span class="description">Retourne le montant total des frais hors forfaitisés pour un visiteur
+et un mois sans compter les refusés</span><pre>getMontantTotalFraisHorsForfait</pre>
         </a>
     </li>
 
@@ -240,6 +270,12 @@ Appel : $instancePdoGsb = PdoGsb::getPdoGsb();</span><pre>getPdoGsb</pre>
     </li>
 
                                                                                                         <li class="method public">
+        <a href="#method_getPuissanceVehicule" title="getPuissanceVehicule :: Retourne le puissance du vehicule enregistré">
+            <span class="description">Retourne le puissance du vehicule enregistré</span><pre>getPuissanceVehicule</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_majEtatFicheFrais" title="majEtatFicheFrais :: Modifie l&#039;état et la date de modification d&#039;une fiche de frais.">
             <span class="description">Modifie l&#039;état et la date de modification d&#039;une fiche de frais.</span><pre>majEtatFicheFrais</pre>
         </a>
@@ -248,6 +284,12 @@ Appel : $instancePdoGsb = PdoGsb::getPdoGsb();</span><pre>getPdoGsb</pre>
                                                                                                         <li class="method public">
         <a href="#method_majFiche" title="majFiche :: Modifie l&#039;état et la date d&#039;une fiche de frais">
             <span class="description">Modifie l&#039;état et la date d&#039;une fiche de frais</span><pre>majFiche</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_majFicheEtat" title="majFicheEtat :: Modifie l&#039;état et la date d&#039;une fiche de frais">
+            <span class="description">Modifie l&#039;état et la date d&#039;une fiche de frais</span><pre>majFicheEtat</pre>
         </a>
     </li>
 
@@ -274,6 +316,18 @@ un mois donné en enregistrant les nouveaux montants</span><pre>majFraisForfait<
     </li>
 
                                                                                                         <li class="method public">
+        <a href="#method_majIdPuissanceVehicule" title="majIdPuissanceVehicule :: Modifie la puissance véhicule d&#039;un visiteur">
+            <span class="description">Modifie la puissance véhicule d&#039;un visiteur</span><pre>majIdPuissanceVehicule</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_majMontantFraisForfait" title="majMontantFraisForfait :: Modifie le montant du frais kilométrique">
+            <span class="description">Modifie le montant du frais kilométrique</span><pre>majMontantFraisForfait</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_majNbJustificatifs" title="majNbJustificatifs :: Met à jour le nombre de justificatifs de la table ficheFrais
 pour le mois et le visiteur concerné">
             <span class="description">Met à jour le nombre de justificatifs de la table ficheFrais
@@ -291,7 +345,7 @@ pour le mois et le visiteur concerné</span><pre>majNbJustificatifs</pre>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
@@ -302,7 +356,7 @@ pour toutes les méthodes de la classe">
 pour toutes les méthodes de la classe</span><pre>__construct</pre>
                             </a>
                         </li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -615,7 +669,7 @@ les lignes de frais forfait de quantités nulles</p></div>
                                             <a id="method_estVisiteur"></a>
                         <div class="element clickable method public  method_estVisiteur" data-toggle="collapse" data-target=".method_estVisiteur .collapse">
                             <h2>Retourne type d&#039;utilisateur</h2>
-                            <pre>estVisiteur(String $login, String $mdp) : \vrai</pre>
+                            <pre>estVisiteur(String $login, String $mdp) : \comptable</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -638,14 +692,14 @@ les lignes de frais forfait de quantités nulles</p></div>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code>\vrai</code><p><p>ou faux</p></p>
+                                        <code>\comptable</code><p><p>ou visiteur</p></p>
                                                                     </div>
                             </div>
 
                         </div>
                                             <a id="method_getFichesFrais"></a>
                         <div class="element clickable method public  method_getFichesFrais" data-toggle="collapse" data-target=".method_getFichesFrais .collapse">
-                            <h2>Retourne la liste des fiches de frais pour un état avec les information</h2>
+                            <h2>Retourne la liste des fiches de frais pour un état avec les informations</h2>
                             <pre>getFichesFrais( $etat) : \un</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
@@ -858,6 +912,43 @@ et la ligne d'état</p></p>
                             </div>
 
                         </div>
+                                            <a id="method_getLesInfosFicheFraisEtat"></a>
+                        <div class="element clickable method public  method_getLesInfosFicheFraisEtat" data-toggle="collapse" data-target=".method_getLesInfosFicheFraisEtat .collapse">
+                            <h2>Retourne les informations d&#039;une fiche de frais d&#039;un visiteur pour un
+mois et un état donné</h2>
+                            <pre>getLesInfosFicheFraisEtat(String $idVisiteur, String $mois,  $etat) : \un</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$idVisiteur</h4>
+                                                <code>String</code><p><p>ID du visiteur</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mois</h4>
+                                                <code>String</code><p><p>Mois sous la forme aaaamm</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$etat</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>\un</code><p><p>tableau avec des champs de jointure entre une fiche de frais
+et la ligne d'état</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
                                             <a id="method_getLesMoisDisponibles"></a>
                         <div class="element clickable method public  method_getLesMoisDisponibles" data-toggle="collapse" data-target=".method_getLesMoisDisponibles .collapse">
                             <h2>Retourne les mois pour lesquel un visiteur a une fiche de frais</h2>
@@ -911,6 +1002,99 @@ l'année et le mois correspondant</p></p>
                                     
                                                                             <h3>Response</h3>
                                         <code>\un</code><p><p>tableau avec prénom et nom des visiteurs</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getListePuissanceVehicule"></a>
+                        <div class="element clickable method public  method_getListePuissanceVehicule" data-toggle="collapse" data-target=".method_getListePuissanceVehicule .collapse">
+                            <h2>Retourne la liste des types de véhicules</h2>
+                            <pre>getListePuissanceVehicule() : \un</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>\un</code><p><p>tableau avec des champs de puissancevehicule</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMontantTotalFraisForfait"></a>
+                        <div class="element clickable method public  method_getMontantTotalFraisForfait" data-toggle="collapse" data-target=".method_getMontantTotalFraisForfait .collapse">
+                            <h2>Retourne le montant total des frais forfaitisés pour un visiteur
+et un mois</h2>
+                            <pre>getMontantTotalFraisForfait(String $idVisiteur, String $mois) : \un</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$idVisiteur</h4>
+                                                <code>String</code><p><p>ID Visiteur</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mois</h4>
+                                                <code>String</code><p><p>mois</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>\un</code><p><p>tableau avec le montant total</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMontantTotalFraisHorsForfait"></a>
+                        <div class="element clickable method public  method_getMontantTotalFraisHorsForfait" data-toggle="collapse" data-target=".method_getMontantTotalFraisHorsForfait .collapse">
+                            <h2>Retourne le montant total des frais hors forfaitisés pour un visiteur
+et un mois sans compter les refusés</h2>
+                            <pre>getMontantTotalFraisHorsForfait(String $idVisiteur, String $mois) : \un</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$idVisiteur</h4>
+                                                <code>String</code><p><p>ID Visiteur</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mois</h4>
+                                                <code>String</code><p><p>mois</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>\un</code><p><p>tableau avec le montant total</p></p>
                                                                     </div>
                             </div>
 
@@ -1003,6 +1187,33 @@ Appel : $instancePdoGsb = PdoGsb::getPdoGsb();</h2>
                             </div>
 
                         </div>
+                                            <a id="method_getPuissanceVehicule"></a>
+                        <div class="element clickable method public  method_getPuissanceVehicule" data-toggle="collapse" data-target=".method_getPuissanceVehicule .collapse">
+                            <h2>Retourne le puissance du vehicule enregistré</h2>
+                            <pre>getPuissanceVehicule(String $idVisiteur) : \un</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$idVisiteur</h4>
+                                                <code>String</code><p><p>ID Visiteur</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>\un</code><p><p>tableau avec la puissance véhicule</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
                                             <a id="method_majEtatFicheFrais"></a>
                         <div class="element clickable method public  method_majEtatFicheFrais" data-toggle="collapse" data-target=".method_majEtatFicheFrais .collapse">
                             <h2>Modifie l&#039;état et la date de modification d&#039;une fiche de frais.</h2>
@@ -1041,7 +1252,46 @@ Appel : $instancePdoGsb = PdoGsb::getPdoGsb();</h2>
                                             <a id="method_majFiche"></a>
                         <div class="element clickable method public  method_majFiche" data-toggle="collapse" data-target=".method_majFiche .collapse">
                             <h2>Modifie l&#039;état et la date d&#039;une fiche de frais</h2>
-                            <pre>majFiche(String $idVisiteur, String $mois, String $etat) : null</pre>
+                            <pre>majFiche(String $idVisiteur, String $mois, String $etat, float $montant) : null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$idVisiteur</h4>
+                                                <code>String</code><p><p>ID du visiteur</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mois</h4>
+                                                <code>String</code><p><p>Mois</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$etat</h4>
+                                                <code>String</code><p><p>etat de la fiche de frais</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$montant</h4>
+                                                <code>float</code><p><p>montant validé</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_majFicheEtat"></a>
+                        <div class="element clickable method public  method_majFicheEtat" data-toggle="collapse" data-target=".method_majFicheEtat .collapse">
+                            <h2>Modifie l&#039;état et la date d&#039;une fiche de frais</h2>
+                            <pre>majFicheEtat(String $idVisiteur, String $mois, String $etat) : null</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -1181,6 +1431,68 @@ un mois donné en enregistrant les nouveaux montants</h2>
                                                 <h4>$lesFrais</h4>
                                                 <code>Array</code><p><p>tableau associatif de clé idFrais et
 de valeur la quantité pour ce frais</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_majIdPuissanceVehicule"></a>
+                        <div class="element clickable method public  method_majIdPuissanceVehicule" data-toggle="collapse" data-target=".method_majIdPuissanceVehicule .collapse">
+                            <h2>Modifie la puissance véhicule d&#039;un visiteur</h2>
+                            <pre>majIdPuissanceVehicule(String $idVisiteur, String $idPuissanceVehicule) : null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$idVisiteur</h4>
+                                                <code>String</code><p><p>ID du visiteur</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$idPuissanceVehicule</h4>
+                                                <code>String</code><p><p>ID puissance vehicule</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_majMontantFraisForfait"></a>
+                        <div class="element clickable method public  method_majMontantFraisForfait" data-toggle="collapse" data-target=".method_majMontantFraisForfait .collapse">
+                            <h2>Modifie le montant du frais kilométrique</h2>
+                            <pre>majMontantFraisForfait(String $id, String $montant) : null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>String</code><p><p>ID frais forfait</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$montant</h4>
+                                                <code>String</code><p><p>le montant</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
@@ -1425,7 +1737,7 @@ pour le mois et le visiteur concerné</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Fri, 26 Mar 2021 09:43:47 +0000.<br/>
+            generated on Wed, 31 Mar 2021 17:26:58 +0000.<br/>
     </footer>
     </body>
 </html>
